@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
+using DirectorioTalleres.Shared;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<ContextDB>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConection"));
+});
 
 var app = builder.Build();
 
